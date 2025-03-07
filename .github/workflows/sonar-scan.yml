@@ -6,11 +6,26 @@ on:
       - main
   pull_request:
     types: [opened, synchronize, reopened]
+  workflow_call:
+    inputs:
+      RUN_SONARQUBE_QUALITY_GATE_CHECK:
+        description: Whether to run SonarQube Quality Gate check
+        required: false
+        type: boolean
+        default: false
+      WORKING_DIRECTORY:
+        description: Working directory
+        required: true
+        type: string
 
 jobs:
   check:
     if: ${{ github.actor != 'dependabot[bot]' }}
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ inputs.WORKING_DIRECTORY }}
     timeout-minutes: 60
     permissions:
       id-token: write
@@ -26,3 +41,13 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Run SonarQube Quality Gate Check
+        if: ${{ inputs.RUN_SONARQUBE_QUALITY_GATE_CHECK }}
+        uses: Sonarsource/sonarqube-quality-gate-action@8406f4f1edaffef38e9fb9c53eb292fc1d7684fa #master
+        # Force to fail step after specific time
+        timeout-minutes: 5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          scanMetadataReportFile: ${{ inputs.WORKING_DIRECTORY }}/.scannerwork/report-task.txt
