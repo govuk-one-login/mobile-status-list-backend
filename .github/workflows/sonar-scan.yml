@@ -11,6 +11,10 @@ jobs:
   check:
     if: ${{ github.actor != 'dependabot[bot]' }}
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./
     timeout-minutes: 60
     permissions:
       id-token: write
@@ -26,3 +30,12 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Run SonarQube Quality Gate Check
+        uses: Sonarsource/sonarqube-quality-gate-action@8406f4f1edaffef38e9fb9c53eb292fc1d7684fa #master
+        # Force to fail step after specific time
+        timeout-minutes: 5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          scanMetadataReportFile: ./.scannerwork/report-task.txt
