@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/govuk-one-login/mobile-status-list-backend/issues"
   },
-  "homepage": "https://github.com/govuk-one-login/mobile-status-list-backend#readme"
+  "homepage": "https://github.com/govuk-one-login/mobile-status-list-backend#readme",
+  "devDependencies": {
+    "eslint": "^9.22.0"
+  }
 }
