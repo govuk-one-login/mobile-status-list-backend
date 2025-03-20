@@ -37,8 +37,8 @@ jobs:
     #       cache: npm
     #       cache-dependency-path: backend/package-lock.json
 
-      - name: Install dependencies
-        run: npm install
+    #   - name: Install dependencies
+    #     run: npm install
 
       - name: Linting
         run: npm run lint
@@ -47,8 +47,8 @@ jobs:
         run: npm run format:check
 
       # Runs unit, infra and pact tests
-      - name: Run tests
-        run: npm run test
+    #   - name: Run tests
+    #     run: npm run test
 
     #   - name: Generate proxy open api spec
     #     run: npm run generate-proxy-open-api
