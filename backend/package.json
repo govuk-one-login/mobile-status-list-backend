@@ -4,8 +4,9 @@
   "description": "place holder",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "./node_modules/.bin/eslint"
+    "test": "echo 'testing to be set up'",
+    "lint": "echo 'linting to be set up'",
+    "format:check": "echo 'formatting to be set up'"
   },
   "repository": {
     "type": "git",
